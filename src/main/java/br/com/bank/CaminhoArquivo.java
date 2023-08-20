@@ -53,6 +53,10 @@ public class CaminhoArquivo {
         // é setado de acordo com a lógica 
         // (se o id for menor que 1000, então 1, se não, incrementa 1
         // a cada 1000)
+
+        if(id == null){
+            throw new IDNaoInformadoException();
+        }
         
         // Preferi fazer uma função privada para desenvolver a lógica separada
         String directory = mountDiretorio(id);

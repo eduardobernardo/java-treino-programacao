@@ -42,8 +42,10 @@ class CaminhoArquivoTest {
 
     @Test
     public void deve_lancar_excecao_quando_id_nao_informado(){
-        assertThrows(NullPointerException.class, () -> {
+        Exception e = assertThrows(IDNaoInformadoException.class, () -> {
             CaminhoArquivo.getInstance(null);
         });
+
+        assertEquals("ID não informado!", e.getMessage(), "As mensagens de erro devem ser iguais");
     }
 }
