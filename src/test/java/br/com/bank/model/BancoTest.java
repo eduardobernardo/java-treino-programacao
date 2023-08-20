@@ -10,6 +10,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import br.com.bank.ContaNaoEncontradaException;
+
 class BancoTest {
   private Banco banco;
   private Conta conta;
@@ -66,7 +68,7 @@ class BancoTest {
     // instancia um objeto Spy
     Banco bancoSpy = Mockito.spy(banco);
     bancoSpy.adicionarConta(conta);
-    assertThrows(IllegalArgumentException.class, () -> bancoSpy.pesquisarContaDoCliente("022").getCpf());
+    assertThrows(ContaNaoEncontradaException.class, () -> bancoSpy.pesquisarContaDoCliente("022").getCpf());
   }
 
   @Test
