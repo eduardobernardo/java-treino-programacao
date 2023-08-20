@@ -7,6 +7,8 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import br.com.bank.ContaNaoEncontradaException;
+
 public class Banco {
 
     private String nome;
@@ -24,12 +26,21 @@ public class Banco {
         contas.add(conta);
     }
     public Conta pesquisarContaDoCliente(String cpf){
-        //Aproveitar o metodo de filtrar contas para retornar a pesquisa
-        List<Conta> contas = filtrarContas( conta -> conta.getCpf().equals(cpf));
-        if(contas.size() > 0){
-            return contas.get(0);
+        // O metodo filtrarContas retorna uma lista, mas queremos apenas 1 conta
+        // List<Conta> contas = filtrarContas( conta -> conta.getCpf().equals(cpf));
+
+        // O metodo Stream Filter, quando usado com o metodo findFirst
+        // Faz a mesma funcao do break em um for loop
+        // A vantagem e que o stream deixa o codigo mais declarativo sobre
+        // as intencoes do algoritmo.
+        Optional<Conta> contaCliente = contas.stream().filter(conta -> conta.getCpf().equals(cpf)).findFirst();
+
+        // Se encontrou alguma conta, retorna
+        if(contaCliente.isPresent()){
+            return contaCliente.get();
         }else{
-            throw new IllegalArgumentException();
+            // Retorna o erro de conta nao encontrada
+            throw new ContaNaoEncontradaException();
         }
     }
 
