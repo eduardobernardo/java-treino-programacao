@@ -19,24 +19,24 @@ public class CaminhoArquivo {
     }
 
     private static String mountDiretorio(Integer id){
-        String directory = "/tmp/";
+        String caminho = "/tmp/";
 
         if(id > 0){
             // Define um BigDecimal passando o ID
-            BigDecimal a = new BigDecimal(id);
+            BigDecimal idArquivo = new BigDecimal(id);
             // Define um BigDecimal passando o divisor exigido pela lógica do teste
             BigDecimal divisor = new BigDecimal(1000);
             
             // Faz o cálculo do resultado da divisão, arredondando para cima
             // utilizando o método RoundingMode.UP.
-            BigDecimal result = a.divide(divisor, RoundingMode.UP);
+            BigDecimal modulo = idArquivo.divide(divisor, RoundingMode.UP);
     
             // Monta a String do Diretório e do Arquivo
-            directory += result;
+            caminho += modulo;
         }else{
-            directory += "1";
+            caminho += "1";
         }
-        return directory;
+        return caminho;
     }
 
     public Path getDiretorio() {
@@ -59,11 +59,11 @@ public class CaminhoArquivo {
         }
         
         // Preferi fazer uma função privada para desenvolver a lógica separada
-        String directory = mountDiretorio(id);
-        String file = directory + "/" + id;
+        String caminhoDiretorio = mountDiretorio(id);
+        String arquivo = caminhoDiretorio + "/" + id;
 
         //Retorna os caminhos do Diretório e do Arquivo
-        return new CaminhoArquivo(Paths.get(directory), Paths.get(file));
+        return new CaminhoArquivo(Paths.get(caminhoDiretorio), Paths.get(arquivo));
     }
 
 }
