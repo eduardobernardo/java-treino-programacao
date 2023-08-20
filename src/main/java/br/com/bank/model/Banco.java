@@ -18,16 +18,19 @@ public class Banco {
     private List<Conta> contas = new ArrayList<>();
 
     public void adicionarConta(Conta conta) {
+        if(conta == null){
+            throw new IllegalArgumentException();
+        }
         contas.add(conta);
     }
-    public Conta pesquisarContaDoCliente(String cpf) {
-        Conta c = null;
-        for (int i = 0; i < contas.size(); i++) {
-            if (contas.get(i).getCpf().equals(cpf)) {
-                c = contas.get(i);
-            }
+    public Conta pesquisarContaDoCliente(String cpf){
+        //Aproveitar o metodo de filtrar contas para retornar a pesquisa
+        List<Conta> contas = filtrarContas( conta -> conta.getCpf().equals(cpf));
+        if(contas.size() > 0){
+            return contas.get(0);
+        }else{
+            throw new IllegalArgumentException();
         }
-        return c;
     }
 
     public List<Conta> listarContasAltaRenda() {
